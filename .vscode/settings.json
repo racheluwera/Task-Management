@@ -1,0 +1,6 @@
+{
+  "prisma.prismaFmtBinPath": "./node_modules/prisma/build/index.js",
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
+}

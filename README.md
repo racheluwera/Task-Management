@@ -1,124 +1,159 @@
 # TaskFlow — Task Management App
 
-A professional full-stack task management application built with Next.js (frontend) and Node.js/Express + SQLite (backend).
-
-## Technologies Used
-
-### Frontend
-- Next.js 16 (App Router)
-- TypeScript
-- Tailwind CSS
-- Font Awesome (icons)
-
-### Backend *(see backend setup guide below)*
-- Node.js + Express
-- Prisma ORM
-- SQLite (recommended) — can be swapped for PostgreSQL or MySQL
+A full-stack task management web application built with **Next.js 16**, **Prisma ORM**, and **SQLite**. Create, edit, filter, and track your tasks with a clean and responsive UI.
 
 ---
 
-## Frontend — Install & Run
+## Tech Stack
 
-```bash
-cd task-management-nextjs
-npm install
-npm run dev
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Database | SQLite (via Prisma ORM v5) |
+| Icons | Font Awesome |
+| Runtime | Node.js |
+
+---
+
+## Project Structure
+
 ```
-
-Open [http://localhost:3000](http://localhost:3000)
+task-management-nextjs/
+├── app/
+│   ├── api/
+│   │   └── tasks/
+│   │       ├── route.ts          # GET, POST /api/tasks
+│   │       └── [id]/
+│   │           └── route.ts      # PUT, DELETE /api/tasks/[id]
+│   ├── dashboard/
+│   │   └── page.tsx              # Main task dashboard
+│   ├── about/
+│   │   └── page.tsx              # About page
+│   ├── contact/
+│   │   └── page.tsx              # Contact page
+│   ├── layout.tsx                # Root layout (Header + Footer)
+│   └── page.tsx                  # Home / landing page
+├── components/
+│   ├── Header.tsx                # Sticky navigation header
+│   └── Footer.tsx                # Site footer
+├── lib/
+│   └── prisma.ts                 # Prisma client singleton
+├── prisma/
+│   ├── schema.prisma             # Database schema
+│   ├── dev.db                    # SQLite database file
+│   └── migrations/               # Prisma migration history
+├── .env                          # Environment variables
+└── tsconfig.json                 # TypeScript config
+```
 
 ---
 
 ## Features
 
-- View all tasks with title, description, priority, status, due date, and created date
-- Create a task with full validation
-- Edit a task
-- Delete a task
-- Mark a task as Pending or Completed
-- Filter tasks by status and priority
-- Search tasks by title or description
-- Task statistics (total, completed, pending, overdue)
-- Quick actions (mark all complete, clear completed)
-- Responsive design with Header and Footer
-- Pages: Home, Dashboard, About, Contact
+- **Add Tasks** — Create tasks with title, description, priority, and due date
+- **Edit Tasks** — Update any task via a modal form
+- **Delete Tasks** — Remove individual tasks with confirmation
+- **Toggle Status** — Mark tasks as pending or completed
+- **Mark All Complete** — Complete all tasks in one click
+- **Clear Completed** — Bulk delete all completed tasks
+- **Filter** — Filter by status (all / pending / completed) and priority
+- **Sort** — Sort by due date, title, or priority
+- **Search** — Search tasks by title or description
+- **Statistics** — Live counts for total, completed, pending, and overdue tasks
+- **Overdue Detection** — Tasks past their due date are highlighted
+- **Persistent Storage** — All data saved to SQLite database via REST API
 
 ---
 
-## Backend Setup Guide
+## Getting Started
 
-See the **Backend Guide** section below for step-by-step instructions.
-
----
-
-## Database Recommendation
-
-**SQLite** — best choice to get started fast:
-- No installation required
-- Single file database (`dev.db`)
-- Prisma supports it out of the box
-- Easy to switch to PostgreSQL later for production
-
----
-
-## Backend Guide
-
-### Folder Structure
-
-```
-backend/
-├── prisma/
-│   └── schema.prisma
-├── src/
-│   ├── index.ts
-│   └── routes/
-│       └── tasks.ts
-├── .env
-├── package.json
-└── tsconfig.json
-```
-
-### Step 1 — Create the backend folder
+### 1. Clone the repository
 
 ```bash
-mkdir backend
-cd backend
-npm init -y
+git clone https://github.com/racheluwera/Task-Management.git
+cd Task-Management/task-management-nextjs
 ```
 
-### Step 2 — Install dependencies
+### 2. Install dependencies
 
 ```bash
-npm install express cors
-npm install -D typescript ts-node @types/node @types/express @types/cors prisma
-npx prisma init --datasource-provider sqlite
+npm install
 ```
 
-### Step 3 — Files to create (see README for code)
+### 2. Set up environment variables
 
-- `prisma/schema.prisma`
-- `src/index.ts`
-- `src/routes/tasks.ts`
-- `.env`
-- `tsconfig.json`
+Create a `.env` file in the root (already included):
 
-### Step 4 — Run migrations and start
+```env
+DATABASE_URL="file:./dev.db"
+```
+
+### 3. Run database migration
 
 ```bash
 npx prisma migrate dev --name init
-npx ts-node src/index.ts
 ```
 
-API runs at [http://localhost:4000](http://localhost:4000)
+### 4. Start the development server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## API Endpoints
+## API Routes
 
-| Method | Endpoint     | Purpose        |
-|--------|-------------|----------------|
-| GET    | /tasks      | Get all tasks  |
-| GET    | /tasks/:id  | Get one task   |
-| POST   | /tasks      | Create a task  |
-| PUT    | /tasks/:id  | Update a task  |
-| DELETE | /tasks/:id  | Delete a task  |
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/tasks` | Fetch all tasks |
+| `POST` | `/api/tasks` | Create a new task |
+| `PUT` | `/api/tasks/[id]` | Update a task by ID |
+| `DELETE` | `/api/tasks/[id]` | Delete a task by ID |
+
+---
+
+## Database Schema
+
+```prisma
+model Task {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  status      String   @default("pending")
+  priority    String   @default("medium")
+  dueDate     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+```
+
+---
+
+## Scripts
+
+```bash
+npm run dev        # Start development server
+npm run build      # Generate Prisma client + build for production
+npm run start      # Start production server
+npm run lint       # Run ESLint
+npx prisma studio  # Open Prisma Studio (visual DB browser)
+```
+
+---
+
+## Pages
+
+| Route | Description |
+|---|---|
+| `/` | Landing page with hero and CTA |
+| `/dashboard` | Full task management dashboard |
+| `/about` | About TaskFlow |
+| `/contact` | Contact form |
+## Link for deployment:  
+
+https://task-management-cmf2.vercel.app/

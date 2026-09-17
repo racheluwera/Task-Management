@@ -99,7 +99,7 @@ export default function Home() {
                   <FontAwesomeIcon key={i} icon={faStar} className="text-yellow-400 text-sm mr-0.5" />
                 ))}
               </div>
-              <p className="text-gray-600 text-sm mb-4">"{text}"</p>
+              <p className="text-gray-600 text-sm mb-4">&ldquo;{text}&rdquo;</p>
               <div>
                 <p className="font-semibold text-gray-800 text-sm">{name}</p>
                 <p className="text-gray-400 text-xs">{role}</p>

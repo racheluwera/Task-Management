@@ -27,7 +27,7 @@ export default function About() {
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <h2 className="text-3xl font-bold text-gray-800">Our Mission</h2>
           <p className="text-gray-500 leading-relaxed">
-            TaskFlow was created to solve a simple problem — keeping track of what needs to get done without the overhead of complex project management tools. Whether you're a student, freelancer, or professional, TaskFlow gives you a clean space to manage your day.
+            TaskFlow was created to solve a simple problem — keeping track of what needs to get done without the overhead of complex project management tools. Whether you&apos;re a student, freelancer, or professional, TaskFlow gives you a clean space to manage your day.
           </p>
         </div>
       </section>

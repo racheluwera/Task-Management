@@ -20,7 +20,7 @@ export default function Contact() {
       <section className="bg-gradient-to-br from-indigo-600 to-indigo-800 text-white py-20 px-4 text-center">
         <div className="max-w-2xl mx-auto space-y-4">
           <h1 className="text-4xl font-extrabold">Contact Us</h1>
-          <p className="text-indigo-200 text-lg">Have a question or feedback? We'd love to hear from you.</p>
+          <p className="text-indigo-200 text-lg">Have a question or feedback? We&apos;d love to hear from you.</p>
         </div>
       </section>
 
@@ -30,7 +30,7 @@ export default function Contact() {
           <div className="space-y-8">
             <div>
               <h2 className="text-2xl font-bold text-gray-800 mb-2">Get in Touch</h2>
-              <p className="text-gray-500">Fill out the form and we'll get back to you as soon as possible.</p>
+              <p className="text-gray-500">Fill out the form and we&apos;ll get back to you as soon as possible.</p>
             </div>
             <div className="space-y-5">
               <div className="flex items-start space-x-4">
@@ -71,7 +71,7 @@ export default function Contact() {
                   <FontAwesomeIcon icon={faCheck} className="text-green-600 text-2xl" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800">Message Sent!</h3>
-                <p className="text-gray-500">Thanks for reaching out. We'll get back to you soon.</p>
+                <p className="text-gray-500">Thanks for reaching out. We&apos;ll get back to you soon.</p>
                 <button
                   onClick={() => setSubmitted(false)}
                   className="text-indigo-600 text-sm font-medium hover:underline"

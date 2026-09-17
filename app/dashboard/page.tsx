@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusCircle, faChartPie, faBolt, faCheckCircle, faTrashAlt,
@@ -30,7 +30,11 @@ function formatDate(dateString: string) {
 }
 
 export default function Dashboard() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    if (typeof window === "undefined") return SAMPLE_TASKS;
+    const stored = localStorage.getItem("tasks");
+    return stored ? JSON.parse(stored) : SAMPLE_TASKS;
+  });
   const [filter, setFilter] = useState("all");
   const [sort, setSort] = useState("default");
   const [taskName, setTaskName] = useState("");
@@ -43,11 +47,6 @@ export default function Dashboard() {
   const [editDate, setEditDate] = useState("");
 
   const today = new Date().toISOString().split("T")[0];
-
-  useEffect(() => {
-    const stored = localStorage.getItem("tasks");
-    setTasks(stored ? JSON.parse(stored) : SAMPLE_TASKS);
-  }, []);
 
   function saveTasks(updated: Task[]) {
     setTasks(updated);
